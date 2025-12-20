@@ -292,8 +292,13 @@ impl GamePuzzleScene {
         let tile_x = (FIRST_COL_CLUE_POS.0 + x) as i32;
 
         if self.puzzle.col_clues[x].iter().all(|&c| c == 0) {
-            set_number_variant(&mut self.background_pieces, (tile_x, FIRST_COL_CLUE_POS.1 as i32), 0, base);
-            return
+            set_number_variant(
+                &mut self.background_pieces,
+                (tile_x, FIRST_COL_CLUE_POS.1 as i32),
+                0,
+                base,
+            );
+            return;
         }
 
         let mut count = 0;
@@ -317,8 +322,13 @@ impl GamePuzzleScene {
         let tile_y = (FIRST_ROW_CLUE_POS.1 + y) as i32;
 
         if self.puzzle.row_clues[y].iter().all(|&c| c == 0) {
-            set_number_variant(&mut self.background_pieces, (FIRST_ROW_CLUE_POS.0 as i32, tile_y), 0, base);
-            return
+            set_number_variant(
+                &mut self.background_pieces,
+                (FIRST_ROW_CLUE_POS.0 as i32, tile_y),
+                0,
+                base,
+            );
+            return;
         }
 
         let mut count = 0;
