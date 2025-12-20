@@ -1,0 +1,20 @@
+[package]
+name = "nonogram_advance"
+version = "0.1.0"
+publish = false
+authors = ["Emma Britton <emmabritton@pm.me>"]
+readme = "README.md"
+license-file = "LICENSE"
+keywords = ["games", "pixels", "retro", "gba"]
+categories = ["games"]
+description = "Nonogram game for GBA"
+edition = "2024"
+
+[dependencies]
+agb = "0.22.6"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = true

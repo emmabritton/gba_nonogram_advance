@@ -1,0 +1,55 @@
+name: Rust
+
+on:
+  push:
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --all-targets -- -D clippy::all
+
+  build_and_release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    name: Build and Release
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: setup
+        run: |
+          cargo install agb-gbafix
+          rustup target add thumbv4t-none-eabi
+
+      - name: build
+        run: cargo build --release
+
+      - name: build gba
+        run: agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advance.gba
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: nonogram_advance.gba
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
