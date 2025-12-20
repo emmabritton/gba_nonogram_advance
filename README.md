@@ -4,7 +4,9 @@ Nonogram game with 104 puzzles for the GBA
 
 ## Screenshots
 
-
+![Screenshot of main menu](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/main_menu.png)
+![Screenshot of 6x6 puzzle](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/6x6.png)
+![Screenshot of 22x12 puzzle](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/22x12.png)
 
 ## Usage
 

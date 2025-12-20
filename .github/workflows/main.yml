@@ -40,7 +40,6 @@ jobs:
       - name: setup
         run: |
           cargo install agb-gbafix
-          rustup target add thumbv4t-none-eabi
 
       - name: build
         run: cargo build --release
