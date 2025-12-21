@@ -7,7 +7,7 @@ const N: usize = 2;
 const W: usize = 20;
 const H: usize = 10;
 
-pub(crate) const IMAGES: [&Tag; N] = [&nono_images::_8X8_1, &nono_images::_8X8_2];
+pub const IMAGES: &Tag = &nono_images::_20X10;
 
 const GAMES: [[[u8; MAX_COLS]; MAX_ROWS]; N] =
     parse_grids::<N>(include_bytes!("../../assets/20x10.nonos"), W, H);

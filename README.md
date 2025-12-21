@@ -3,7 +3,7 @@
 Nonogram game with 104 puzzles for the GBA
 
 > [!WARNING]
-> The current nonograms are just for testings and only the first one or two are done per size. Selecting puzzle 3 or greater on any size will crash.
+> The current nonograms are just for testing, and only the first one or two are done per size. Selecting puzzle 3 or greater on any size will crash.
 
 ## Screenshots
 

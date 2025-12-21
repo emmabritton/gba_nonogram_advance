@@ -8,10 +8,10 @@ use crate::{
     SFX_CURSOR, SFX_MENU, SFX_NEGATIVE, SFX_POSITIVE, Scene, SceneAction, SceneMusic, bg_gfx,
     sprites,
 };
-use agb::display::GraphicsFrame;
-use agb::display::object::Object;
+use agb::display::{AffineMatrix, GraphicsFrame};
+use agb::display::object::{AffineMatrixObject, AffineMode, Object, ObjectAffine};
 use agb::display::tiled::{RegularBackground, VRAM_MANAGER};
-use agb::fixnum::vec2;
+use agb::fixnum::{num, vec2, Num, Vector2D};
 use agb::input::{Button, ButtonController};
 use agb::sound::mixer::{ChannelId, Mixer};
 use alloc::boxed::Box;
@@ -111,14 +111,22 @@ impl Scene for PuzzleMenuScene {
             self.size.button_size(),
         );
 
+        let num: Num<i32, 8> = num!(0.5);
+        let matrix = AffineMatrixObject::new(AffineMatrix::from_scale(Vector2D::new(num, num)));
+
         for (iy, row) in self.size.buttons().iter().enumerate() {
             for (ix, (x, y)) in row.iter().enumerate() {
                 let i = iy * self.size.buttons()[0].len() + ix;
                 let y = (*y as i32 + 1) * TILE_SIZE;
                 let start_x = (*x as i32 + 1) * TILE_SIZE;
                 if self.is_completed[i] {
-                    let mut obj = Object::new(self.size.images()[i].sprite(0));
-                    obj.set_pos(vec2(start_x, y)).show(graphics);
+                    let sprite = self.size.images().sprite(i);
+                    if self.size.scale_in_menu() {
+                        ObjectAffine::new(sprite, matrix.clone(), AffineMode::AffineDouble)
+                            .set_pos(vec2(start_x, y)).show(graphics);
+                    } else {
+                        Object::new(sprite).set_pos(vec2(start_x, y)).show(graphics);
+                    }
                 } else {
                     for (i, sprite) in self.empty_sprite.iter_mut().enumerate() {
                         let x = start_x + ((i as i32 * TILE_SIZE) * 2);

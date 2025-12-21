@@ -54,6 +54,9 @@ include_aseprite!(
     mod nono_images,
     "gfx/game/sprite/nono_6x6.aseprite",
     "gfx/game/sprite/nono_8x8.aseprite",
+    "gfx/game/sprite/nono_10x10.aseprite",
+    "gfx/game/sprite/nono_12x12.aseprite",
+    "gfx/game/sprite/nono_20x10.aseprite",
     "gfx/game/sprite/nono_22x12.aseprite",
 );
 

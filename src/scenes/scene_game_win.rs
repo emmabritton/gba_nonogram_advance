@@ -5,7 +5,7 @@ use agb::display::object::{AffineMatrixObject, AffineMode, GraphicsMode, Object,
 use agb::display::tiled::RegularBackgroundSize::Background32x32;
 use agb::display::tiled::{RegularBackground, TileFormat, VRAM_MANAGER};
 use agb::display::{AffineMatrix, GraphicsFrame, Priority};
-use agb::fixnum::{Num, Vector2D, num};
+use agb::fixnum::{Num, Vector2D, num, vec2};
 use agb::input::{Button, ButtonController};
 use agb::sound::mixer::{ChannelId, Mixer, SoundChannel};
 use alloc::boxed::Box;
@@ -34,7 +34,7 @@ impl GameWinScene {
         let num: Num<i32, 8> = num!(0.5);
 
         let puzzle_sprite = ObjectAffine::new(
-            puzzle_size.images()[game_idx].sprite(0),
+            puzzle_size.images().sprite(game_idx),
             AffineMatrixObject::new(AffineMatrix::from_scale(Vector2D::new(num, num))),
             AffineMode::AffineDouble,
         );
@@ -101,13 +101,14 @@ fn draw_bg_and_image(
 
     let perc = ((*anim_timer as f32) / IMG_DURATION).min(1.0);
 
-    let mut x = 104;
-    if matches!(puzzle_size, PuzzleSize::_22x12 | PuzzleSize::_20x10) {
-        x -= 16;
-    }
+    let (x,y) = match puzzle_size {
+        PuzzleSize::_6x6|PuzzleSize::_8x8 => (112,32),
+        PuzzleSize::_12x12|PuzzleSize::_10x10 => (104,8),
+        PuzzleSize::_20x10|PuzzleSize::_22x12 => (88,8)
+    };
 
     puzzle_sprite
-        .set_pos((x, 32))
+        .set_pos(vec2(x,y))
         .set_graphics_mode(GraphicsMode::AlphaBlending)
         .show(graphics);
 
