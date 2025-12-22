@@ -17,6 +17,7 @@ use agb::sound::mixer::{ChannelId, Mixer};
 use alloc::boxed::Box;
 use alloc::vec;
 use alloc::vec::Vec;
+use agb::println;
 
 pub struct PuzzleMenuScene {
     cursor: (usize, usize),
@@ -38,7 +39,19 @@ impl PuzzleMenuScene {
         music_enabled: bool,
         sfx_enabled: bool,
     ) -> Box<dyn Scene> {
-        let is_completed = completed_games.iter().map(|v| v > &0).collect();
+        let is_completed: Vec<bool> = completed_games.iter().map(|&v| v > 0).collect();
+        println!("is_completed: {:?}", is_completed);
+        let cursor = if let Some(pos) = is_completed.iter().position(|&v| !v) {
+            println!("pos: {pos}");
+            let x = pos % size.buttons()[0].len();
+            let y = pos / size.buttons()[0].len();
+            println!("cursor: ({x},{y})");
+            (x, y)
+        } else {
+            (0, 0)
+        };
+        let pos = size.buttons()[cursor.1][cursor.0];
+        let button_highlight = Highlight::new(pos.0,pos.1);
 
         let mut empty_sprite = vec![];
         match size {
@@ -52,7 +65,7 @@ impl PuzzleMenuScene {
         }
 
         Box::new(Self {
-            cursor: (0, 0),
+            cursor,
             backgrounds: background_stack([&bg_gfx::dots, size.bg(), size.bg_title()]),
             button_highlight_sprites: lvl_button_sprites(),
             size,
@@ -60,7 +73,7 @@ impl PuzzleMenuScene {
             is_completed,
             sfx_enabled,
             music_enabled,
-            button_highlight: Highlight::new(size.buttons()[0][0].0, size.buttons()[0][0].1),
+            button_highlight,
         })
     }
 }
