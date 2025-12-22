@@ -40,17 +40,13 @@ impl PuzzleSize {
 
     pub fn images(self) -> &'static Tag {
         match self {
-            PuzzleSize::_6x6 => &nonos::_6x6::IMAGES,
-            PuzzleSize::_8x8 => &nonos::_8x8::IMAGES,
-            PuzzleSize::_10x10 => &nonos::_10x10::IMAGES,
-            PuzzleSize::_12x12 => &nonos::_12x12::IMAGES,
-            PuzzleSize::_20x10 => &nonos::_20x10::IMAGES,
-            PuzzleSize::_22x12 => &nonos::_22x12::IMAGES,
+            PuzzleSize::_6x6 => nonos::_6x6::IMAGES,
+            PuzzleSize::_8x8 => nonos::_8x8::IMAGES,
+            PuzzleSize::_10x10 => nonos::_10x10::IMAGES,
+            PuzzleSize::_12x12 => nonos::_12x12::IMAGES,
+            PuzzleSize::_20x10 => nonos::_20x10::IMAGES,
+            PuzzleSize::_22x12 => nonos::_22x12::IMAGES,
         }
-    }
-    
-    pub fn scale_in_menu(self) -> bool {
-        matches!(self, PuzzleSize::_6x6 | PuzzleSize::_8x8)
     }
 
     pub fn game_count(self) -> usize {

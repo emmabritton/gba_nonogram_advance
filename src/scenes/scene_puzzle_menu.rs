@@ -8,10 +8,10 @@ use crate::{
     SFX_CURSOR, SFX_MENU, SFX_NEGATIVE, SFX_POSITIVE, Scene, SceneAction, SceneMusic, bg_gfx,
     sprites,
 };
-use agb::display::{AffineMatrix, GraphicsFrame};
-use agb::display::object::{AffineMatrixObject, AffineMode, Object, ObjectAffine};
+use agb::display::GraphicsFrame;
+use agb::display::object::Object;
 use agb::display::tiled::{RegularBackground, VRAM_MANAGER};
-use agb::fixnum::{num, vec2, Num, Vector2D};
+use agb::fixnum::vec2;
 use agb::input::{Button, ButtonController};
 use agb::sound::mixer::{ChannelId, Mixer};
 use alloc::boxed::Box;
@@ -117,7 +117,9 @@ impl Scene for PuzzleMenuScene {
                 let y = (*y as i32 + 1) * TILE_SIZE;
                 let start_x = (*x as i32 + 1) * TILE_SIZE;
                 if self.is_completed[i] {
-                    Object::new(self.size.images().sprite(i)).set_pos(vec2(start_x, y)).show(graphics);
+                    Object::new(self.size.images().sprite(i))
+                        .set_pos(vec2(start_x, y))
+                        .show(graphics);
                 } else {
                     for (i, sprite) in self.empty_sprite.iter_mut().enumerate() {
                         let x = start_x + ((i as i32 * TILE_SIZE) * 2);
