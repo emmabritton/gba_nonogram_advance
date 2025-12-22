@@ -3,7 +3,13 @@
 Nonogram game with 104 puzzles for the GBA
 
 > [!WARNING]
-> The current nonograms are just for testing, and only the first one or two are done per size. Selecting puzzle 3 or greater on any size will crash.
+> Nonograms are only partially done:
+> 6x6:   21
+> 8x8:   1
+> 10x10: 1
+> 12x12: 0
+> 20x10: 0
+> 22x12: 7
 
 ## Screenshots
 
