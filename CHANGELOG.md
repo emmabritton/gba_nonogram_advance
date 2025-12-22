@@ -1,3 +1,7 @@
+# 0.2.2
+
+- Change puzzle image on win screen to scale instead of fade in
+
 # 0.2.1
 
 - Add 8 12x12

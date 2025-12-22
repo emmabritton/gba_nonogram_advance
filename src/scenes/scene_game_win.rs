@@ -1,18 +1,17 @@
 use crate::puzzle_size::PuzzleSize;
 use crate::sfx::stop_bgm;
-use crate::{bg_gfx, sprites, Scene, SceneAction, SceneMusic, SFX_CONGRATS};
-use agb::display::object::{AffineMatrixObject, AffineMode, GraphicsMode, Object, ObjectAffine, Sprite};
+use crate::{SFX_CONGRATS, Scene, SceneAction, SceneMusic, bg_gfx, sprites};
+use agb::display::object::{AffineMatrixObject, AffineMode, Object, ObjectAffine, Sprite};
 use agb::display::tiled::RegularBackgroundSize::Background32x32;
 use agb::display::tiled::{RegularBackground, TileFormat, VRAM_MANAGER};
 use agb::display::{AffineMatrix, GraphicsFrame, Priority};
-use agb::fixnum::{num, vec2, Num, Vector2D};
+use agb::fixnum::{Num, Vector2D, num, vec2};
 use agb::input::{Button, ButtonController};
 use agb::sound::mixer::{ChannelId, Mixer, SoundChannel};
 use alloc::boxed::Box;
 use core::ops::Sub;
 
 const DURATION: i32 = 50;
-const IMG_DURATION: f32 = 80.0;
 
 //                                 C   o   n   g   r   a   t   u   l  a   t   i  o   n   s   !
 const LETTER_SPACING: [i32; 16] = [14, 12, 12, 14, 10, 14, 10, 14, 7, 12, 10, 8, 12, 14, 12, 0];
@@ -23,7 +22,7 @@ pub struct GameWinScene {
     puzzle_size: PuzzleSize,
     music_enabled: bool,
     puzzle_sprite: &'static Sprite,
-    scale: Num<i32, 4>
+    scale: Num<i32, 16>,
 }
 
 impl GameWinScene {
@@ -39,7 +38,7 @@ impl GameWinScene {
             puzzle_size,
             music_enabled,
             puzzle_sprite: puzzle_size.images().sprite(game_idx),
-            scale: num!(0.5)
+            scale: num!(2.0),
         })
     }
 }
@@ -58,7 +57,7 @@ impl Scene for GameWinScene {
     }
 
     fn update(&mut self, buttons: &ButtonController, mixer: &mut Mixer) -> Option<SceneAction> {
-        self.scale = self.scale.sub(num!(0.01)).max(num!(0.5));
+        self.scale = self.scale.sub(num!(0.005)).max(num!(0.5));
         if self.music_enabled && self.anim_timer == 4 {
             let mut music = SoundChannel::new_high_priority(SFX_CONGRATS);
             music.stereo();
@@ -75,48 +74,34 @@ impl Scene for GameWinScene {
     fn show(&mut self, graphics: &mut GraphicsFrame) {
         let obj = ObjectAffine::new(
             self.puzzle_sprite,
-            AffineMatrixObject::new(AffineMatrix::from_scale(Vector2D::new(self.scale, self.scale))),
+            AffineMatrixObject::new(AffineMatrix::from_scale(Vector2D::new(
+                self.scale, self.scale,
+            ))),
             AffineMode::AffineDouble,
         );
 
-        draw_bg_and_image(
-            &mut self.anim_timer,
-            self.puzzle_size,
-            obj,
-            &self.background,
-            graphics,
-        );
+        self.anim_timer += 1;
+
+        draw_bg_and_image(self.puzzle_size, obj, &self.background, graphics);
 
         draw_congrats(self.anim_timer, graphics);
     }
 }
 
 fn draw_bg_and_image(
-    anim_timer: &mut u16,
     puzzle_size: PuzzleSize,
     mut puzzle_sprite: ObjectAffine,
     background: &RegularBackground,
     graphics: &mut GraphicsFrame,
 ) {
-    let id = background.show(graphics);
-    *anim_timer += 1;
-
-    let perc = ((*anim_timer as f32) / IMG_DURATION).min(1.0);
+    background.show(graphics);
 
     let (x, y) = match puzzle_size {
         PuzzleSize::_12x12 | PuzzleSize::_10x10 | PuzzleSize::_6x6 | PuzzleSize::_8x8 => (104, 36),
         PuzzleSize::_20x10 | PuzzleSize::_22x12 => (88, 32),
     };
 
-    puzzle_sprite
-        .set_pos(vec2(x, y))
-        .set_graphics_mode(GraphicsMode::AlphaBlending)
-        .show(graphics);
-
-    graphics
-        .blend()
-        .object_transparency(Num::from_f32(perc), Num::from_f32(1.0 - perc))
-        .enable_background(id);
+    puzzle_sprite.set_pos(vec2(x, y)).show(graphics);
 }
 
 fn draw_congrats(anim_timer: u16, graphics: &mut GraphicsFrame) {
