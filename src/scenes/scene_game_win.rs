@@ -102,9 +102,8 @@ fn draw_bg_and_image(
     let perc = ((*anim_timer as f32) / IMG_DURATION).min(1.0);
 
     let (x,y) = match puzzle_size {
-        PuzzleSize::_6x6|PuzzleSize::_8x8 => (112,32),
-        PuzzleSize::_12x12|PuzzleSize::_10x10 => (104,8),
-        PuzzleSize::_20x10|PuzzleSize::_22x12 => (88,8)
+        PuzzleSize::_12x12|PuzzleSize::_10x10|PuzzleSize::_6x6|PuzzleSize::_8x8 => (104,36),
+        PuzzleSize::_20x10|PuzzleSize::_22x12 => (88,32)
     };
 
     puzzle_sprite

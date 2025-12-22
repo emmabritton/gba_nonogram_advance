@@ -3,7 +3,7 @@ use crate::nonos::calc::{Clues, compute_all_clues, parse_grids};
 use crate::puzzle_size::{MAX_COLS, MAX_ROWS, Puzzle};
 use agb::display::object::Tag;
 
-const N: usize = 2;
+const N: usize = 21;
 const W: usize = 8;
 const H: usize = 8;
 
