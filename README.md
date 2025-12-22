@@ -1,15 +1,17 @@
 # Nonogram Advance
 
-Nonogram game with 104 puzzles for the GBA
+Nonogram game with 108 puzzles for the GBA
 
 > [!WARNING]
 > Nonograms are only partially done:
-> - 6x6:   21
-> - 8x8:   21
-> - 10x10: 1
-> - 12x12: 8
-> - 20x10: 0
-> - 22x12: 7
+> - 6x6:   21/21
+> - 8x8:   21/21
+> - 10x10:  1/21
+> - 12x12:  8/21
+> - 20x10:  3/12
+> - 22x12:  9/12
+> 
+> Total:   63/108
 
 ## Screenshots
 
@@ -17,7 +19,11 @@ Nonogram game with 104 puzzles for the GBA
 ![Screenshot of 6x6 puzzle](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/6x6.png)
 ![Screenshot of 22x12 puzzle](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/22x12.png)
 
-## Usage
+## Player Usage
+
+Download gba file from [here](https://github.com/emmabritton/gba_nonogram_advance/releases/latest) and run in an emulator (mGBA recommended) 
+
+## Dev Usage
 
 First follow instructions at https://agbrs.dev/book/setup/getting_started.html
 
