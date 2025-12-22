@@ -107,7 +107,7 @@ impl SettingsData {
                 music_enabled: true,
                 sfx_enabled: true,
                 completed_games: [0; TOTAL_GAME_COUNT],
-                help_level: HelpLevel::Solvable,
+                help_level: HelpLevel::Full,
             }
         } else {
             let mut grid_enabled = HashMap::new();

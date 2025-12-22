@@ -13,11 +13,11 @@ use agb::display::object::Object;
 use agb::display::tiled::{RegularBackground, VRAM_MANAGER};
 use agb::fixnum::vec2;
 use agb::input::{Button, ButtonController};
+use agb::println;
 use agb::sound::mixer::{ChannelId, Mixer};
 use alloc::boxed::Box;
 use alloc::vec;
 use alloc::vec::Vec;
-use agb::println;
 
 pub struct PuzzleMenuScene {
     cursor: (usize, usize),
@@ -51,7 +51,7 @@ impl PuzzleMenuScene {
             (0, 0)
         };
         let pos = size.buttons()[cursor.1][cursor.0];
-        let button_highlight = Highlight::new(pos.0,pos.1);
+        let button_highlight = Highlight::new(pos.0, pos.1);
 
         let mut empty_sprite = vec![];
         match size {
