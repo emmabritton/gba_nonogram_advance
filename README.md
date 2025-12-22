@@ -4,12 +4,12 @@ Nonogram game with 104 puzzles for the GBA
 
 > [!WARNING]
 > Nonograms are only partially done:
-> 6x6:   21
-> 8x8:   1
-> 10x10: 1
-> 12x12: 0
-> 20x10: 0
-> 22x12: 7
+> - 6x6:   21
+> - 8x8:   1
+> - 10x10: 1
+> - 12x12: 0
+> - 20x10: 0
+> - 22x12: 7
 
 ## Screenshots
 
