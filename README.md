@@ -7,7 +7,7 @@ Nonogram game with 104 puzzles for the GBA
 > - 6x6:   21
 > - 8x8:   1
 > - 10x10: 1
-> - 12x12: 0
+> - 12x12: 8
 > - 20x10: 0
 > - 22x12: 7
 
