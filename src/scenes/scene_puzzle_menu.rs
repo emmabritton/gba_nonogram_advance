@@ -13,7 +13,6 @@ use agb::display::object::Object;
 use agb::display::tiled::{RegularBackground, VRAM_MANAGER};
 use agb::fixnum::vec2;
 use agb::input::{Button, ButtonController};
-use agb::println;
 use agb::sound::mixer::{ChannelId, Mixer};
 use alloc::boxed::Box;
 use alloc::vec;
@@ -40,12 +39,9 @@ impl PuzzleMenuScene {
         sfx_enabled: bool,
     ) -> Box<dyn Scene> {
         let is_completed: Vec<bool> = completed_games.iter().map(|&v| v > 0).collect();
-        println!("is_completed: {:?}", is_completed);
         let cursor = if let Some(pos) = is_completed.iter().position(|&v| !v) {
-            println!("pos: {pos}");
             let x = pos % size.buttons()[0].len();
             let y = pos / size.buttons()[0].len();
-            println!("cursor: ({x},{y})");
             (x, y)
         } else {
             (0, 0)

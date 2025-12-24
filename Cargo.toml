@@ -1,6 +1,6 @@
 [package]
 name = "nonogram_advance"
-version = "0.2.2"
+version = "0.2.3"
 publish = false
 authors = ["Emma Britton <emmabritton@pm.me>"]
 readme = "README.md"
