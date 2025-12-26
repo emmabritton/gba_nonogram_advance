@@ -1,6 +1,6 @@
 [package]
 name = "nonogram_advance"
-version = "0.2.3"
+version = "0.2.4"
 publish = false
 authors = ["Emma Britton <emmabritton@pm.me>"]
 readme = "README.md"
@@ -13,8 +13,14 @@ edition = "2024"
 [dependencies]
 agb = "0.22.6"
 
-[profile.release]
+[profile.dev]
 opt-level = 3
 lto = "fat"
 codegen-units = 1
 debug = true
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = false

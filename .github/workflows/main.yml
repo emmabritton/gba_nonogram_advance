@@ -46,7 +46,7 @@ jobs:
         run: cargo build --release
 
       - name: build gba
-        run: agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advance.gba
+        run: agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advance.gba -tNonogramAdv -cNOA1 -mEB -r024
 
       - uses: softprops/action-gh-release@v1
         with:

@@ -30,7 +30,7 @@ use crate::sfx::start_track;
 use agb::display::GraphicsFrame;
 use agb::input::ButtonController;
 use agb::sound::mixer::{ChannelId, Frequency, Mixer, SoundData};
-use agb::{include_aseprite, include_background_gfx, include_wav, println};
+use agb::{include_aseprite, include_background_gfx, include_wav};
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 
@@ -51,11 +51,15 @@ include_aseprite!(
 );
 
 include_aseprite!(
-    mod nono_images,
+    mod sq_nono_images,
     "gfx/game/sprite/nono_6x6.aseprite",
     "gfx/game/sprite/nono_8x8.aseprite",
     "gfx/game/sprite/nono_10x10.aseprite",
     "gfx/game/sprite/nono_12x12.aseprite",
+);
+
+include_aseprite!(
+    mod rect_nono_images,
     "gfx/game/sprite/nono_20x10.aseprite",
     "gfx/game/sprite/nono_22x12.aseprite",
 );
@@ -104,7 +108,6 @@ fn main(mut gba: agb::Gba) -> ! {
             if let Err(e) = save_data.read(0, &mut save_bytes) {
                 panic!("Save read error: {:?}", e);
             }
-            println!("Save read {:?}", save_bytes);
             SettingsData::from_bytes(save_bytes)
         }
         Err(e) => {
@@ -134,7 +137,6 @@ fn main(mut gba: agb::Gba) -> ! {
                     {
                         settings_data.grid_enabled.insert(size, grid_enabled);
                         settings_data.set_completed(size, idx);
-                        println!("(win) Writing {:?}", settings_data.as_bytes());
                         if let Err(e) = writer.write(0, &settings_data.as_bytes()) {
                             panic!("(win) Save write error: {:?}", e);
                         }
@@ -152,7 +154,6 @@ fn main(mut gba: agb::Gba) -> ! {
                     if let Ok(mut save_data) = gba.save.access()
                         && let Ok(mut writer) = save_data.prepare_write(0..SAVE_DATA_SIZE)
                     {
-                        println!("(settings) Writing {:?}", settings_data.as_bytes());
                         if let Err(e) = writer.write(0, &settings_data.as_bytes()) {
                             panic!("(settings) Save write error: {:?}", e);
                         }

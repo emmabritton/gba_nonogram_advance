@@ -6,12 +6,12 @@ Nonogram game with 108 puzzles for the GBA
 > Nonograms are only partially done:
 > - 6x6:   21/21
 > - 8x8:   21/21
-> - 10x10: 12/21
-> - 12x12:  8/21
+> - 10x10: 21/21
+> - 12x12: 20/21
 > - 20x10:  3/12
-> - 22x12:  12/12
+> - 22x12: 12/12
 > 
-> Total:   77/108
+> Total:   98/108
 
 ## Screenshots
 
@@ -29,7 +29,7 @@ First follow instructions at https://agbrs.dev/book/setup/getting_started.html
 
 ### Run
 
-cargo run --release
+cargo run
 
 (runs in mGBA)
 
