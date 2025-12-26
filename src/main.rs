@@ -153,10 +153,9 @@ fn main(mut gba: agb::Gba) -> ! {
                     settings_data.help_level = help_level;
                     if let Ok(mut save_data) = gba.save.access()
                         && let Ok(mut writer) = save_data.prepare_write(0..SAVE_DATA_SIZE)
+                        && let Err(e) = writer.write(0, &settings_data.as_bytes())
                     {
-                        if let Err(e) = writer.write(0, &settings_data.as_bytes()) {
-                            panic!("(settings) Save write error: {:?}", e);
-                        }
+                        panic!("(settings) Save write error: {:?}", e);
                     }
                     scene =
                         MainMenuScene::new(settings_data.music_enabled, settings_data.sfx_enabled);

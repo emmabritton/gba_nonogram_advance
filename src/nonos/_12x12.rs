@@ -1,6 +1,6 @@
-use crate::sq_nono_images;
 use crate::nonos::calc::{Clues, compute_all_clues, parse_grids};
 use crate::puzzle_size::{MAX_COLS, MAX_ROWS, Puzzle};
+use crate::sq_nono_images;
 use agb::display::object::Tag;
 
 const N: usize = 21;
