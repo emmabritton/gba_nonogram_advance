@@ -75,3 +75,4 @@ agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advanc
 - BGM across multiple scenes
 - Less repetitive sound setting checks (global sfx enabled check?)
 - Unit testing without needing mgba
+- How palettes are generated
