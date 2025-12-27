@@ -2,17 +2,6 @@
 
 Nonogram game with 108 puzzles for the GBA
 
-> [!WARNING]
-> Nonograms are only partially done:
-> - 6x6:   21/21
-> - 8x8:   21/21
-> - 10x10: 21/21
-> - 12x12: 21/21
-> - 20x10:  3/12
-> - 22x12: 12/12
-> 
-> Total:   99/108
-
 ## Screenshots
 
 ![Screenshot of main menu](https://raw.githubusercontent.com/emmabritton/gba_nonogram_advance/refs/heads/main/.github/screenshots/main_menu.png)
@@ -76,3 +65,4 @@ agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advanc
 - Less repetitive sound setting checks (global sfx enabled check?)
 - Unit testing without needing mgba
 - How palettes are generated
+- Buzzing on music
