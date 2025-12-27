@@ -99,7 +99,7 @@ include_background_gfx!(
 
 #[agb::entry]
 fn main(mut gba: agb::Gba) -> ! {
-    gba.save.init_sram();
+    gba.save.init_flash_64k();
     let mut mixer = gba.mixer.mixer(Frequency::Hz18157);
 
     let mut settings_data = match gba.save.access() {

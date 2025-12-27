@@ -57,7 +57,7 @@ impl Scene for GameWinScene {
     }
 
     fn update(&mut self, buttons: &ButtonController, mixer: &mut Mixer) -> Option<SceneAction> {
-        self.scale = self.scale.sub(num!(0.005)).max(num!(0.5));
+        self.scale = self.scale.sub(num!(0.01)).max(num!(0.5));
         if self.music_enabled && self.anim_timer == 4 {
             let mut music = SoundChannel::new_high_priority(SFX_CONGRATS);
             music.stereo();

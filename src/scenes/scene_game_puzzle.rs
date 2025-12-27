@@ -19,7 +19,7 @@ use alloc::vec::Vec;
 use alloc::{format, vec};
 use core::mem::swap;
 
-const INPUT_DELAY: u8 = 6;
+const INPUT_DELAY: u8 = 10;
 
 const BOARD_OFFSET: (i32, i32) = (8, 8);
 const TEXT_OFFSET: (i32, i32) = (1, 4);

@@ -1,3 +1,11 @@
+# 0.9.1
+
+- Faster win animation
+- Increase delay between inputs on puzzle screen to try to improve input feel
+- Change to 512Kbit flash save for cheaper cartridges
+- Fix some 12x12 puzzles
+- Add cartridge sticker
+
 # 0.9.0
 
 - Add 9 10x10
