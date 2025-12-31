@@ -152,4 +152,17 @@ impl SettingsData {
     pub fn is_completed_by_size(&self, size: PuzzleSize) -> &[u8] {
         &self.completed_games[size.save_idx()..size.save_idx() + size.game_count()]
     }
+
+    pub fn reset(&mut self) {
+        self.grid_enabled.insert(PuzzleSize::_6x6, true);
+        self.grid_enabled.insert(PuzzleSize::_8x8, true);
+        self.grid_enabled.insert(PuzzleSize::_10x10, true);
+        self.grid_enabled.insert(PuzzleSize::_12x12, true);
+        self.grid_enabled.insert(PuzzleSize::_20x10, true);
+        self.grid_enabled.insert(PuzzleSize::_22x12, true);
+        self.music_enabled = true;
+        self.sfx_enabled = true;
+        self.completed_games = [0; TOTAL_GAME_COUNT];
+        self.help_level = HelpLevel::Full;
+    }
 }

@@ -4,9 +4,9 @@ use crate::settings_button_highlight::SettingsHighlight;
 use crate::settings_data::HelpLevel;
 use crate::sfx::{play_sfx, stop_bgm, update_bgm};
 use crate::{SFX_CURSOR, SFX_MENU, SFX_POSITIVE, Scene, SceneAction, SceneMusic, bg_gfx, sprites};
-use agb::display::GraphicsFrame;
 use agb::display::object::Object;
-use agb::display::tiled::{RegularBackground, VRAM_MANAGER};
+use agb::display::tiled::{RegularBackground, RegularBackgroundSize, TileFormat, VRAM_MANAGER};
+use agb::display::{GraphicsFrame, Priority};
 use agb::fixnum::vec2;
 use agb::input::{Button, ButtonController};
 use agb::sound::mixer::{ChannelId, Mixer};
@@ -18,9 +18,15 @@ const SETTINGS_INDEXES: [(u8, u8); 4] = [(12, 14), (15, 14), (18, 14), (21, 14)]
 
 const IDX_SETTINGS: usize = 2;
 
+const WARNING_COUNT_MAX: u8 = 30;
+const WARNING_TIME: u8 = 8;
+
 pub struct SettingsScene {
     button_idx: usize,
     backgrounds: [RegularBackground; 2],
+    warning_bg: RegularBackground,
+    warning_count: u8,
+    warning_time: u8,
     music_enabled: bool,
     sfx_enabled: bool,
     bgm: Option<(SceneMusic, ChannelId)>,
@@ -40,12 +46,22 @@ impl SettingsScene {
         button_gfx[1].set_hflip(true);
         button_gfx[3].set_hflip(true);
 
+        let mut warning_bg = RegularBackground::new(
+            Priority::P0,
+            RegularBackgroundSize::Background32x32,
+            TileFormat::FourBpp,
+        );
+        warning_bg.fill_with(&bg_gfx::delete_save);
+
         Box::new(Self {
             button_idx: 0,
             backgrounds: background_stack([&bg_gfx::dots, &bg_gfx::settings]),
             music_enabled,
             sfx_enabled,
+            warning_bg,
             bgm: None,
+            warning_count: WARNING_COUNT_MAX,
+            warning_time: 0,
             help_level,
             button_gfx,
             button_highlight: SettingsHighlight::new(
@@ -148,32 +164,58 @@ impl Scene for SettingsScene {
                 self.sfx_enabled,
                 self.help_level,
             ));
+        } else {
+            #[allow(clippy::collapsible_else_if)]
+            if buttons.is_pressed(Button::L | Button::R) {
+                if self.warning_time == 0 {
+                    self.warning_time = WARNING_TIME;
+                    self.warning_count = self.warning_count.saturating_sub(1);
+                    if self.warning_count == 0 {
+                        return Some(SceneAction::DeleteSave);
+                    }
+                } else {
+                    self.warning_time -= 1;
+                }
+            } else {
+                self.warning_count = WARNING_COUNT_MAX;
+                self.warning_time = 0;
+            }
         }
         None
     }
 
     fn show(&mut self, graphics: &mut GraphicsFrame) {
-        self.backgrounds.iter().for_each(|bg| {
-            bg.show(graphics);
-        });
+        if self.warning_count < WARNING_COUNT_MAX {
+            self.warning_bg.show(graphics);
+            let count = (WARNING_COUNT_MAX - self.warning_count) as i32;
+            for x in 0..count {
+                Object::new(sprites::WARNING_BLOCK.sprite(0))
+                    .set_pos(vec2(x * TILE_SIZE, 11 * TILE_SIZE) - vec2(0, 2))
+                    .show(graphics);
+            }
+        } else {
+            self.backgrounds.iter().for_each(|bg| {
+                bg.show(graphics);
+            });
 
-        let help_idx = self.help_level.to_byte() as usize;
-        let help_pos = SETTINGS_INDEXES[help_idx];
+            let help_idx = self.help_level.to_byte() as usize;
+            let help_pos = SETTINGS_INDEXES[help_idx];
 
-        self.button_highlight.show(graphics, &mut self.button_gfx);
+            self.button_highlight.show(graphics, &mut self.button_gfx);
 
-        Object::new(sprites::SETTINGS_NUMBERS.sprite(help_idx))
-            .set_pos(vec2(
-                help_pos.0 as i32 * TILE_SIZE,
-                help_pos.1 as i32 * TILE_SIZE,
-            ))
-            .show(graphics);
+            Object::new(sprites::SETTINGS_NUMBERS.sprite(help_idx))
+                .set_pos(vec2(
+                    help_pos.0 as i32 * TILE_SIZE,
+                    help_pos.1 as i32 * TILE_SIZE,
+                ))
+                .show(graphics);
 
-        if self.sfx_enabled {
-            show_checkmark(CHECKMARK_INDEXES[0], graphics);
-        }
-        if self.music_enabled {
-            show_checkmark(CHECKMARK_INDEXES[1], graphics);
+            if self.sfx_enabled {
+                show_checkmark(CHECKMARK_INDEXES[0], graphics);
+            }
+            if self.music_enabled {
+                show_checkmark(CHECKMARK_INDEXES[1], graphics);
+            }
         }
     }
 }

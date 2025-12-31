@@ -1,3 +1,7 @@
+# 0.9.2
+
+- Add reset option to settings
+
 # 0.9.1
 
 - Faster win animation

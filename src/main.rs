@@ -48,6 +48,7 @@ include_aseprite!(
     "gfx/menu/sprite/questionmark.aseprite",
     "gfx/game/sprite/congrats.aseprite",
     "gfx/menu/sprite/numbers.aseprite",
+    "gfx/menu/sprite/warning.aseprite",
 );
 
 include_aseprite!(
@@ -95,6 +96,7 @@ include_background_gfx!(
     win => deduplicate "gfx/game/bg/win.aseprite",
     confirm => deduplicate "gfx/game/bg/confirm.aseprite",
     pieces => deduplicate "gfx/game/bg/board_pieces.aseprite",
+    delete_save => deduplicate "gfx/menu/bg/settings_delete_save.aseprite",
 );
 
 #[agb::entry]
@@ -212,6 +214,20 @@ fn main(mut gba: agb::Gba) -> ! {
                         settings_data.help_level,
                     );
                 }
+                SceneAction::DeleteSave => {
+                    if let Ok(mut save_data) = gba.save.access()
+                        && let Ok(mut writer) = save_data.prepare_write(0..SAVE_DATA_SIZE)
+                    {
+                        settings_data.reset();
+                        if let Err(e) = writer.write(0, &settings_data.as_bytes()) {
+                            panic!("(reset) Save write error: {:?}", e);
+                        }
+                        scene = MainMenuScene::new(
+                            settings_data.music_enabled,
+                            settings_data.sfx_enabled,
+                        );
+                    }
+                }
             }
             bgm = scene.init(bgm, &mut mixer);
         }
@@ -244,6 +260,7 @@ enum SceneAction {
     Confirm(Box<SceneAction>, Box<SceneAction>), //action to send if positive, action to send if negative
     Settings,
     SettingsClose(bool, bool, HelpLevel), //music enabled, sfx enabled, help level
+    DeleteSave,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, Copy)]
