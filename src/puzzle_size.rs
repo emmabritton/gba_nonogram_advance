@@ -19,7 +19,6 @@ pub const CLUES_PER_COL: usize = 8;
 
 #[derive(Debug)]
 pub struct Puzzle {
-    pub data: &'static [[u8; MAX_COLS]; MAX_ROWS],
     pub row_clues: &'static [[u8; CLUES_PER_ROW]; MAX_ROWS],
     pub col_clues: &'static [[u8; CLUES_PER_COL]; MAX_COLS],
     pub width: usize,

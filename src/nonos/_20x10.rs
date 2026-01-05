@@ -16,7 +16,6 @@ const CLUES: [Clues; N] = compute_all_clues(GAMES, W, H);
 
 pub fn game(idx: usize) -> Puzzle {
     Puzzle {
-        data: &GAMES[idx],
         row_clues: &CLUES[idx].rows,
         col_clues: &CLUES[idx].cols,
         width: W,

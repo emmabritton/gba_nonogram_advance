@@ -1,3 +1,10 @@
+# 0.9.3
+
+- Fix bug where deleting save duplicated bgm
+- Issue #1: 10x10#1 is ambiguous
+  - Solution was to go through and validate every puzzle or change the validation to use clues (instead of puzzles)
+  - I chose to change the validation to use clues
+
 # 0.9.2
 
 - Add reset option to settings

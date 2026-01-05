@@ -251,14 +251,24 @@ impl GamePuzzleScene {
         self.redraw_col_clue(x, complete);
     }
 
-    fn validate(&mut self) {
-        for x in 0..self.puzzle.width {
-            for y in 0..self.puzzle.height {
-                if self.puzzle.data[y][x] > 0 && self.guesses[y][x] != Guess::Filled {
-                    return;
-                }
+    #[allow(clippy::needless_range_loop)]
+    fn validate_by_clues(&mut self) {
+        let w = self.puzzle.width;
+        let h = self.puzzle.height;
+        let guesses = &self.guesses;
+
+        for y in 0..h {
+            if !line_matches_hints(guesses[y].iter().copied(), &self.puzzle.row_clues[y]) {
+                return;
             }
         }
+
+        for x in 0..w {
+            if !line_matches_hints((0..h).map(|y| guesses[y][x]), &self.puzzle.col_clues[x]) {
+                return;
+            }
+        }
+
         self.state = GameState::Win;
     }
 
@@ -489,7 +499,7 @@ impl Scene for GamePuzzleScene {
                     self.drag_mode = None;
                 }
 
-                self.validate();
+                self.validate_by_clues();
             }
             GameState::Win => {
                 return Some(SceneAction::Win(
