@@ -171,6 +171,10 @@ impl Scene for SettingsScene {
                     self.warning_time = WARNING_TIME;
                     self.warning_count = self.warning_count.saturating_sub(1);
                     if self.warning_count == 0 {
+                        let bgm = self.bgm.take();
+                        if let Some(bgm) = bgm {
+                            stop_bgm(mixer, bgm);
+                        }
                         return Some(SceneAction::DeleteSave);
                     }
                 } else {
