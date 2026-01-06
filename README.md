@@ -10,7 +10,9 @@ Nonogram game with 108 puzzles for the GBA
 
 ## Player Usage
 
-Download gba file from [here](https://github.com/emmabritton/gba_nonogram_advance/releases/latest) and run in an emulator (mGBA recommended) 
+Download gba file from [here](https://github.com/emmabritton/gba_nonogram_advance/releases/latest) and run in an emulator (mGBA recommended) or on an actual GBA 
+
+> Save type is FLASH64 / 512Kbit 
 
 ## Dev Usage
 
