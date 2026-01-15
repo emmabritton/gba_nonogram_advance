@@ -1,6 +1,6 @@
 [package]
 name = "nonogram_advance"
-version = "0.9.3"
+version = "0.9.4"
 publish = false
 authors = ["Emma Britton <emmabritton@pm.me>"]
 readme = "README.md"
@@ -12,6 +12,11 @@ edition = "2024"
 
 [dependencies]
 agb = "0.22.6"
+
+[features]
+default = ["sram"]
+sram = []
+flash64 = []
 
 [profile.dev]
 opt-level = 3

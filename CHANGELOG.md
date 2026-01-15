@@ -1,3 +1,7 @@
+# 0.9.4
+
+- Update code and actions to support SRAM and Flash64
+
 # 0.9.3
 
 - Fix bug where deleting save duplicated bgm

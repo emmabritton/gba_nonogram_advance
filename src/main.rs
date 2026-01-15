@@ -99,9 +99,17 @@ include_background_gfx!(
     delete_save => deduplicate "gfx/menu/bg/settings_delete_save.aseprite",
 );
 
+#[cfg(all(feature = "sram", feature = "flash64"))]
+compile_error!("Features `sram` and `flash64` are mutually exclusive. Enable only one.");
+
 #[agb::entry]
 fn main(mut gba: agb::Gba) -> ! {
+    #[cfg(feature = "sram")]
+    gba.save.init_sram();
+
+    #[cfg(feature = "flash64")]
     gba.save.init_flash_64k();
+
     let mut mixer = gba.mixer.mixer(Frequency::Hz18157);
 
     let mut settings_data = match gba.save.access() {
