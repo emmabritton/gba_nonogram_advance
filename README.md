@@ -52,10 +52,16 @@ agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advanc
 - audacity
   - https://www.audacityteam.org/
   - Editing/encoding music
+- Nongram solver
+  - https://cirociampaglia.altervista.org/UPLOADS/nonogram_solver.html
+  - Used to verify correctness of puzzles
 
 ## Lessons learned
 
 - Macros (`include_aseprite`, `include_wav`, etc) should be in a separate module as they seriously affect IDE syntax checking/linting speed
+- The sum of row clues should generally match the sum of column clues 
+- Small puzzles (6x6, 8x8) have their sprites doubled, but this allows for 'subpixel' detailing (see 8x8 potion)
+- Don't make diagonal puzzles
 
 ## Things to learn/solve
 

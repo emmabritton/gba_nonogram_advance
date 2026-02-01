@@ -1,3 +1,30 @@
+# 0.9.5
+
+- Attempt to make all puzzles have a single solution by altering art (and hints)
+  - Thanks to https://cirociampaglia.altervista.org/UPLOADS/nonogram_solver.html
+  - 8x8
+    - potion reduced from 249 solutions to 1
+    - sword reduced from 1384 solutions to 4
+    - staff reduced from 39997 solutions to 1
+    - mirror redrawn as telephone
+  - 10x10
+    - added pineapple to pizza
+    - hotdog reduced from 31790 solutions to 1
+  - 12x12
+    - fern reduced from 31579 solutions to 1
+  - 20x10
+    - paper place reduced from 10000 solutions to 1
+    - reduce train carriage
+    - reduce nessie
+    - reduce books
+  - 22x12
+    - reduce castle
+    - reduce moonscape
+    - reduce waterfall
+    - replaced forest with nono fox
+- Add missing puzzle (12x12 lightbulb)
+- Fix graphical issue with 20x10 grid
+
 # 0.9.4
 
 - Update code and actions to support SRAM and Flash64
