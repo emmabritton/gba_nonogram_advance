@@ -50,15 +50,19 @@ jobs:
       - name: setup
         run: |
           cargo install agb-gbafix
+          cargo install gbafix
 
       - name: build
         run: cargo build --release ${{ matrix.mode.cargo_params}}
 
       - name: build gba
-        run: agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advance_v0.9.4_${{ matrix.mode.filename}}.gba -tNonogramAdv -cNGA1 -mEB -r94
+        run: agb-gbafix target/thumbv4t-none-eabi/release/nonogram_advance -o nonogram_advance_v0.9.5_${{ matrix.mode.filename}}.gba
+
+      - name: fix gba
+        run: gbafix nonogram_advance_v0.9.5_${{ matrix.mode.filename}}.gba -tNonogramAdv -cNGA1 -mEB -r95
 
       - uses: softprops/action-gh-release@v1
         with:
-          files: nonogram_advance_v0.9.4_${{ matrix.mode.filename}}.gba
+          files: nonogram_advance_v0.9.5_${{ matrix.mode.filename}}.gba
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
