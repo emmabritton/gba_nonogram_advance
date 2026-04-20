@@ -13,8 +13,12 @@ Nonogram game with 108 puzzles for the GBA
 Download gba file from [here](https://github.com/emmabritton/gba_nonogram_advance/releases/latest) and run in an emulator (mGBA recommended) or on an actual GBA
 
 > [!TIP]
-> * Use nonogram_advance_v0.9.5_sram.gba on SRAM carts or things like EverDrive
+> * Use nonogram_advance_v0.9.5_sram.gba on SRAM carts or things like EverDrive, or emulators 
 > * Use nonogram_advance_v0.9.5_flash64.gba on 512KBit/64K Flash carts 
+
+## Example Cartridge
+
+https://shop.insidegadgets.com/product/gba-32mb-512kbit-flash-save-flash-cart/
 
 ## Dev Usage
 
