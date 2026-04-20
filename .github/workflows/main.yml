@@ -19,8 +19,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@1.94.1
 
       - name: fmt
         run: cargo fmt --all -- --check
@@ -42,8 +42,8 @@ jobs:
             cargo_params: --no-default-features --features=flash64
             filename: flash64
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@1.94.1
         with:
           components: clippy, rustfmt
 
